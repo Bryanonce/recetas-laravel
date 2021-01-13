@@ -27,8 +27,9 @@ window.Vue = require('vue').default;
 
 Vue.config.ignoredElements = ['trix-editor'];
 Vue.use(VueSweetAlert2);
-Vue.component('fecha-receta',require('./components/FechaReceta.vue').default);
-Vue.component('eliminar-receta',require('./components/EliminarReceta.vue').default);
+Vue.component('like-button', require('./components/LikeButton.vue').default);
+Vue.component('fecha-receta', require('./components/FechaReceta.vue').default);
+Vue.component('eliminar-receta', require('./components/EliminarReceta.vue').default);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -39,3 +40,9 @@ Vue.component('eliminar-receta',require('./components/EliminarReceta.vue').defau
 const app = new Vue({
     el: '#app',
 });
+
+
+$('a.like-button').on('click', function(e) {
+   $(this).toggleClass('liked');
+});
+  

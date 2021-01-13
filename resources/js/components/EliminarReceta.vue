@@ -22,15 +22,16 @@ export default {
         confirmButtonText: "Si, elimínala!",
         cancelButtonText: 'No'
       }).then((result) => {
-        if (result.isConfirmed) {
+        if (result.value) {
             //parametros de axios
             const params = {
                 id: this.recetaId
             }
-
+            //console.log(this.recetaId);
             //Enviar petición al Servidor
             axios.post(`/recetas/${this.recetaId}`,{params,_method:'delete'})
                 .then((res)=>{
+                  //console.log(res);
                     //Notificación de Eliminación
                     this.$swal({
                         title: 'Receta Eliminada',

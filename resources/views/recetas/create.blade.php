@@ -1,7 +1,10 @@
 @extends('layouts.app')
 
 @section('botones')
-    <a href="{{route('recetas.index')}}" class="btn btn-primary">Ir a Receta</a>
+    <a href="{{route('recetas.index')}}" class="btn btn-outline-primary">
+        Ir a Receta
+        <img style="height: 50px;margin-left:10px;" src="/storage/icons/atras.svg" alt="">
+    </a>
 @endsection
 
 <!-- Importar el Trix Editor -->

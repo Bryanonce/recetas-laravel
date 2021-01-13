@@ -1,6 +1,11 @@
 @extends('layouts.app')
 
-
+@section('botones')
+    <a href="{{route('perfiles.show',$receta->user->perfil->id)}}" class="btn btn-outline-primary">
+        Ir al Perfil del Autor
+        <img style="height: 50px;margin-left:10px;" src="/storage/icons/user.svg" alt="">
+    </a>
+@endsection
 
 @section('content')
     {{-- <h1>{{$receta}}</h1> --}}
@@ -11,14 +16,16 @@
         >
             {{$receta->titulo}}
         </h1>
-        
-        <div class="img-receta">
-            <img 
-                src="/storage/{{$receta->imagen}}" 
-                alt="{{$receta->nombre}}" 
-                class="w-100"
-            >
+        <div class="mb-5 d-flex justify-content-center">
+            <div class="img-recetas">
+                <img 
+                    src="/storage/{{$receta->imagen}}" 
+                    alt="{{$receta->nombre}}" 
+                    class="w-100"
+                >
+            </div>
         </div>
+        
         
         <div class="receta-meta mt-2">
             <p>
@@ -44,7 +51,7 @@
                     Autor:
                 </span>
                 {{-- TODO: mostrar el usuario --}}
-                {{$receta->user->name}}
+                <a class="text-danger" href="{{route('perfiles.show',$receta->user->perfil->id)}}">{{$receta->user->name}}</a>                
             </p>
             <p>
                 <span 
@@ -95,6 +102,12 @@
                 </h2>
                 {!! $receta->preparacion !!}
             </div>
+
+            <like-button
+                receta-id="{{$receta->id}}"
+                like = "{{$like}}"
+                likes = "{{$likes}}"
+            ></like-button>
 
         </div>
     </article>

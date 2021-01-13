@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use App\Models\CategoriaReceta;
+use App\Models\LikeReceta;
+use Exception;
 use Illuminate\Support\Facades\Storage;
 
 class RecetaController extends Controller
@@ -24,10 +26,24 @@ class RecetaController extends Controller
      */
     public function index()
     {
-        //Auth::user()->recetas->dd();
-        $recetas = Auth::user()->recetas;
+
+        $usuario = Auth::user();
+        $likes = LikeReceta::orderBy('updated_at','DESC')
+            ->where(array(
+                'user_id' => $usuario->id
+            ))->paginate(5);
+        //$likes = $usuario->meGusta->orderBy('updated_at','DESC');
+
+        //Paginacion
+        $recetas = Receta::orderBy('updated_at','DESC')
+            ->where('user_id',$usuario->id)
+            ->paginate(2);
+
+        $perfil_id = $usuario->perfil->id;
         return view('recetas.index')
-            ->with('recetas',$recetas);
+            ->with('recetas',$recetas)
+            ->with('perfil_id',$perfil_id)
+            ->with('likes',$likes);
     }
 
     /**
@@ -83,6 +99,7 @@ class RecetaController extends Controller
             'user_id' => Auth::user()->id,
             'categoria_id'=> $data['categoria'],
             'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
         ));
 
         //Almacenar en la DB con modelo
@@ -105,8 +122,23 @@ class RecetaController extends Controller
      */
     public function show(Receta $receta)
     {
+        $likes = $receta->likes;
+        try{
+            $like = DB::table('like_recetas')
+            ->where(array(
+                'user_id' => Auth::user()->id,
+                'receta_id' => $receta->id
+            ))
+            ->count('receta_id');
+        }catch(Exception $err){
+            $like = 0;
+        }
+        
+        
         return view('recetas.show')
-            ->with('receta',$receta);
+            ->with('receta',$receta)
+            ->with('like',$like)
+            ->with('likes',$likes);
     }
 
     /**
@@ -119,7 +151,7 @@ class RecetaController extends Controller
     {
 
         //Revisar el policy
-        $this->authorize('update',$receta);
+        $this->authorize('view',$receta);
 
         //Cargar la View
         $categorias = CategoriaReceta::all(['id','nombre']);
@@ -148,7 +180,6 @@ class RecetaController extends Controller
             'preparacion' => 'required',
             'ingredientes' => 'required',
         ));
-        return "editando";
 
         //Asignar Valores
         $receta->titulo = $data['titulo'];
@@ -195,11 +226,16 @@ class RecetaController extends Controller
     {
         //Revisar el policy
         $this->authorize('delete',$receta);
-        
-        //Eliminar la receta
-        $receta->delete();
 
-        //redirigir
+        LikeReceta::where(array(
+            'receta_id' => $receta->id
+        ))->delete();
+
+        Storage::delete("public/{$receta->imagen}");
+        
+        $receta->delete();
+        
+
         return redirect()->route('recetas.index');
     }
 }

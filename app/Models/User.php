@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use App\Models\Receta;
 use App\Models\Perfil;
+use App\Models\LikeReceta;
 
 class User extends Authenticatable
 {
@@ -61,5 +62,9 @@ class User extends Authenticatable
     /* Relación de uno a uno */
     public function perfil(){
         return $this->hasOne(Perfil::class);
+    }
+
+    public function meGusta(){
+        return $this->hasMany(LikeReceta::class);
     }
 }

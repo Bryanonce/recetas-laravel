@@ -4,17 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RecetaController;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\PerfilController;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use App\Http\Controllers\LikeRecetaController;
 
 Route::group(['prefix'=>'recetas'],function(){
     Route::get('',function(){
@@ -29,21 +19,20 @@ Route::group(['prefix'=>'recetas'],function(){
     Route::delete('{receta}',[RecetaController::class,'destroy'])->name('recetas.destroy');
 });
 
+//Route::resource('recetas',RecetaController::class);
+
+Route::post('likes/{receta}',[LikeRecetaController::class,'update'])->name('likes.update');
+
 Route::group(['prefix'=>'perfiles'],function(){
     Route::get('{perfil}',[PerfilController::class,'show'])->name('perfiles.show');
     Route::get('{perfil}/edit',[PerfilController::class,'edit'])->name('perfiles.edit');
     Route::put('{perfil}',[PerfilController::class,'update'])->name('perfiles.update');
 });
-//Route::get('/recetas',[RecetaController::class,'index'])->name('recetas.index');
-
-//Route::get('/recetas',[RecetaController::class,'index'])->name('recetas.index');
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect()->route('recetas.index');
 });
 
-
 Auth::routes();
-
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
