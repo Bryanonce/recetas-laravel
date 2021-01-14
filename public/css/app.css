@@ -11057,7 +11057,7 @@ like-button {
   display: flex;
   justify-content: space-around;
   flex-flow: row wrap;
-  width: 50%;
+  width: 100%;
 }
 
 .like-button {
