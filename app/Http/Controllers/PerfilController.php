@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LikeReceta;
 use App\Models\Perfil;
 use Illuminate\Http\Request;
 use Intervention\Image\Facades\Image;
@@ -9,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\User;
 use App\Models\Receta;
 use Illuminate\Support\Facades\Storage;
-use Exception;
 
 class PerfilController extends Controller
 {
@@ -152,6 +152,40 @@ class PerfilController extends Controller
      */
     public function destroy(Perfil $perfil)
     {
-        //
+        //Verificar el policy
+        $this->authorize('delete',$perfil);
+
+        //Obtener el id del usuario autentificado
+        $id = Auth::user()->id;
+
+        //Eliminar inforamción del perfil del usuario
+        if(($perfil->imagen) !== ''){
+            Storage::delete("public/{$perfil->imagen}");
+        }
+        $perfil->delete();
+
+        //Eliminar los Likes creados por el usuario
+        LikeReceta::where(array(
+            'user_id' => $id
+        ))->delete();
+        
+        //Eliminar las recetas creadas por el usuario
+        Receta::where(array(
+            'user_id' => $id
+        ))->delete();
+        $path = "public/upload-recetas/$id";
+        Storage::deleteDirectory($path);
+
+        //Cerrar session
+        Auth::logout();
+
+        //Eliminar Cuenta
+        User::where(array(
+            'id' => $id
+        ))->delete();
+
+        return 'Eliminado con éxito';
+        
+        
     }
 }

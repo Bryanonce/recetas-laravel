@@ -10905,21 +10905,140 @@ a.text-dark:focus {
 
 body {
   font-family: "Open Sans", sans-serif;
+  background-image: url(/images/fondo.png?0694bcab931c5d2c1b71d35a3137480b);
 }
 
 trix-editor {
-  min-height: 300px;
+  min-height: 400px;
   overflow-y: auto;
 }
 
 .bg-primary .navbar-brand {
-  color: #fff;
-  font-family: "Roboto", sans-serif;
+  color: white;
+  font-family: "Open Sans", sans-serif !important;
   font-size: 2rem;
+  font-family: "Fredoka One", cursive;
+  color: #FFF !important;
+  font-size: 2.4rem;
+  text-decoration: none;
 }
 
-.img-recetas {
-  max-width: 500px;
+.bg-primary .navbar-brand:hover {
+  color: white;
+}
+
+.icono {
+  width: 16px;
+}
+
+.barra {
+  background-color: #3490dc !important;
+}
+
+.fecha {
+  color: #3490dc !important;
+}
+
+.receta-meta p {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.navbar-light .navbar-nav .nav-link {
+  color: #FFF;
+  font-size: 1.4rem;
+}
+
+.navbar-light .navbar-nav .nav-link:focus,
+.navbar-light .navbar-nav .nav-link:hover {
+  color: #FFF;
+}
+
+.titulo-categoria {
+  font-family: "Cabin", sans-serif;
+  color: #333;
+  font-size: 1.8rem;
+  border-bottom: 3px solid #3490dc !important;
+  display: inline-block;
+  padding-bottom: 0.5rem;
+  padding-right: 2rem;
+}
+
+.btn-receta,
+.btn-receta:hover {
+  background-color: #3490dc !important;
+  border: none;
+}
+
+.owl-carousel .owl-stage {
+  display: flex;
+}
+
+.card {
+  display: flex;
+  flex: 1 0 auto;
+  height: 100%;
+}
+
+.card-body {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.categorias-bg {
+  background-color: #fff;
+}
+
+.categorias-bg .nav-link {
+  color: #222 !important;
+  display: inline-block;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+  font-size: 1.2rem !important;
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.categorias-bg .nav-link:before,
+.categorias-bg .nav-link:after {
+  content: "";
+  position: absolute;
+  transition: transform 0.5s ease;
+}
+
+.categorias-bg .nav-link:before {
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 4px;
+  background: #3490dc;
+  transform: translateX(-100%);
+}
+
+.categorias-bg .nav-link:hover:before {
+  transform: translateX(0);
+}
+
+.hero-categorias {
+  background-image: linear-gradient(to bottom, rgba(70, 70, 70, 0.4), rgba(53, 53, 53, 0.571)), url(/images/bgImage.jpg?dc928e50e377853b77e71ad1bbf0b535);
+  height: 30rem;
+  background-size: cover;
+  background-position: top center;
+}
+
+.hero-categorias .texto-buscar p {
+  font-size: 1.4rem;
+  color: #FFF;
+}
+
+.bordes-redondos {
+  border-radius: 10px;
 }
 
 like-button {

@@ -16,27 +16,32 @@ class CategoriasSeeder extends Seeder
     public function run()
     {
         DB::table('categoria_recetas')->insert(array(
-            'nombre' => 'Comida Mexicana',
+            'nombre' => 'Desayunos',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ));
         DB::table('categoria_recetas')->insert(array(
-            'nombre' => 'Comida Italiana',
+            'nombre' => 'Almuerzos',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ));
         DB::table('categoria_recetas')->insert(array(
-            'nombre' => 'Comida Argentina',
+            'nombre' => 'Meriendas',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ));
         DB::table('categoria_recetas')->insert(array(
-            'nombre' => 'Comida Ecuatoriana',
+            'nombre' => 'Postres',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ));
         DB::table('categoria_recetas')->insert(array(
-            'nombre' => 'Cortes de Carne',
+            'nombre' => 'Comida Nacional',
+            'created_at' => date('Y-m-d H:i:s'),
+            'updated_at' => date('Y-m-d H:i:s'),
+        ));
+        DB::table('categoria_recetas')->insert(array(
+            'nombre' => 'Comida Extrangera',
             'created_at' => date('Y-m-d H:i:s'),
             'updated_at' => date('Y-m-d H:i:s'),
         ));

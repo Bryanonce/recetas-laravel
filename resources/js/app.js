@@ -4,6 +4,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+import 'owl.carousel';
 import Vue from 'vue';
 import VueSweetAlert2 from 'vue-sweetalert2';
 
@@ -28,6 +29,7 @@ window.Vue = require('vue').default;
 Vue.config.ignoredElements = ['trix-editor'];
 Vue.use(VueSweetAlert2);
 Vue.component('like-button', require('./components/LikeButton.vue').default);
+Vue.component('eliminar-perfil', require('./components/EliminarPerfil.vue').default);
 Vue.component('fecha-receta', require('./components/FechaReceta.vue').default);
 Vue.component('eliminar-receta', require('./components/EliminarReceta.vue').default);
 
@@ -46,3 +48,23 @@ $('a.like-button').on('click', function(e) {
    $(this).toggleClass('liked');
 });
   
+/* carousel owl */
+jQuery(document).ready(function(){
+    jQuery('.owl-carousel').owlCarousel({
+        margin:10,
+        loop:true,
+        autoplay:true,
+        autoplayHoverPause:true,
+        responsive:{
+            0: {
+                items: 1
+            },
+            600:{
+                items: 2
+            },
+            1000:{
+                items: 3
+            }
+        }
+    });
+})

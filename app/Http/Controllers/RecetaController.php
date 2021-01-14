@@ -17,7 +17,7 @@ class RecetaController extends Controller
 
     public function __construct()
     {
-        $this->middleware('auth',['except' => 'show']);
+        $this->middleware('auth',['except' => ['show','search']]);
     }
     /**
      * Display a listing of the resource.
@@ -83,7 +83,8 @@ class RecetaController extends Controller
         ));
 
         //Optener Ruta de la imagen
-        $ruta_imagen = $request['imagen']->store('upload-recetas','public');
+        $id = Auth::user()->id;
+        $ruta_imagen = $request['imagen']->store("upload-recetas/$id",'public');
 
         //Resize
         $img = Image::make(public_path("storage/{$ruta_imagen}"))
@@ -189,14 +190,14 @@ class RecetaController extends Controller
         
         //En caso de que el usuario actualice la Imagen
         if(request('imagen')){
-
+            $id = Auth::user()->id;
             if($receta->imagen){
                 //Eliminar Imagen Antigua
                 Storage::delete("public/{$receta->imagen}");                
             }
 
             //Optener Ruta de la imagen
-            $ruta_imagen = $request['imagen']->store('upload-recetas','public');
+            $ruta_imagen = $request['imagen']->store("upload-recetas/$id",'public');
 
             //Resize
             $img = Image::make(public_path("storage/{$ruta_imagen}"))
@@ -237,5 +238,16 @@ class RecetaController extends Controller
         
 
         return redirect()->route('recetas.index');
+    }
+
+    public function search(Request $request){
+        $busqueda = $request['buscar'];
+        $recetas = Receta::where('titulo','like','%'.$busqueda.'%')
+            ->paginate(9);
+        $recetas->appends(['buscar'=>$busqueda]);
+
+        return view('busquedas.show')
+            ->with('recetas',$recetas)
+            ->with('busqueda',$busqueda);
     }
 }

@@ -1,21 +1,22 @@
 @extends('layouts.app')
 
 @section('botones')
-    <a href="{{route('perfiles.show',$receta->user->perfil->id)}}" class="btn btn-outline-primary">
+    <a href="{{route('perfiles.show',$receta->user->perfil->id)}}" class="btn btn-primary">
         Ir al Perfil del Autor
-        <img style="height: 50px;margin-left:10px;" src="/storage/icons/user.svg" alt="">
+        <img style="height: 50px;margin-left:10px;" src="/images/user.svg" alt="">
     </a>
 @endsection
 
 @section('content')
     {{-- <h1>{{$receta}}</h1> --}}
 
-    <article class="contenido-receta">
+    <article class="bordes-redondos p-3 contenido-receta bg-white shadow">
         <h1 
             class="text-center mb-4"
         >
             {{$receta->titulo}}
         </h1>
+
         <div class="mb-5 d-flex justify-content-center">
             <div class="img-recetas">
                 <img 
@@ -24,91 +25,96 @@
                     class="w-100"
                 >
             </div>
-        </div>
-        
-        
-        <div class="receta-meta mt-2">
-            <p>
-                <span 
-                    class=
-                    "
-                        font-wigth-bold 
-                        text-primary
-                    "
-                >
-                    Escrito en:
-                </span>
-                {{$receta->categoria->nombre}}
-            </p>
-            <p>
-                <span 
-                    class=
-                    "
-                        font-wigth-bold 
-                        text-primary
-                    "
-                >
-                    Autor:
-                </span>
-                {{-- TODO: mostrar el usuario --}}
-                <a class="text-danger" href="{{route('perfiles.show',$receta->user->perfil->id)}}">{{$receta->user->name}}</a>                
-            </p>
-            <p>
-                <span 
-                    class=
-                    "
-                        font-wigth-bold 
-                        text-primary
-                    "
-                >
-                    Fecha de Creación:
-                </span>
-                <fecha-receta 
-                    fecha="{{$receta->categoria->created_at}}"
-                ></fecha-receta>
-                {{--$receta->categoria->created_at--}}
-            </p>
             
-            <p>
-                <span 
-                    class=
-                    "
-                        font-wigth-bold 
-                        text-primary
-                    "
-                >
-                    Ultima Actualización:
-                </span>
-                <fecha-receta 
-                    fecha="{{$receta->categoria->updated_at}}"
-                ></fecha-receta>
-                {{--$receta->categoria->updated_at--}}
-            </p>
-
-            <div class="ingredientes">
-                <h2 
-                    class="my-2 text-primary"
-                >
-                    Ingredientes:
-                </h2>
-                {!! $receta->ingredientes !!}
-            </div>
-
-            <div class="preparacion">
-                <h2 
-                    class="my-2 text-primary"
-                >
-                    Preparación:
-                </h2>
-                {!! $receta->preparacion !!}
-            </div>
-
-            <like-button
-                receta-id="{{$receta->id}}"
-                like = "{{$like}}"
-                likes = "{{$likes}}"
-            ></like-button>
-
         </div>
+        <div class="mb-5 d-flex justify-content-center shadow p-3">
+            <div class="receta-meta mt-2">
+                <p>
+                    <span 
+                        class=
+                        "
+                            font-wigth-bold 
+                            text-primary
+                        "
+                    >
+                        Escrito en:
+                    </span>
+                    {{$receta->categoria->nombre}}
+                </p>
+                <p>
+                    <span 
+                        class=
+                        "
+                            font-wigth-bold 
+                            text-primary
+                        "
+                    >
+                        Autor:
+                    </span>
+                    {{-- TODO: mostrar el usuario --}}
+                    <a class="text-danger" href="{{route('perfiles.show',$receta->user->perfil->id)}}">{{$receta->user->name}}</a>                
+                </p>
+                <p>
+                    <span 
+                        class=
+                        "
+                            font-wigth-bold 
+                            text-primary
+                        "
+                    >
+                        Fecha de Creación:
+                    </span>
+                    <fecha-receta 
+                        fecha="{{$receta->categoria->created_at}}"
+                    ></fecha-receta>
+                    {{--$receta->categoria->created_at--}}
+                </p>
+                
+                <p>
+                    <span 
+                        class=
+                        "
+                            font-wigth-bold 
+                            text-primary
+                        "
+                    >
+                        Ultima Actualización:
+                    </span>
+                    <fecha-receta 
+                        fecha="{{$receta->categoria->updated_at}}"
+                    ></fecha-receta>
+                    {{--$receta->categoria->updated_at--}}
+                </p>
+    
+                <div class="ingredientes">
+                    <h2 
+                        class="my-2 text-primary"
+                    >
+                        Ingredientes:
+                    </h2>
+                    {!! $receta->ingredientes !!}
+                </div>
+    
+                <div class="preparacion">
+                    <h2 
+                        class="my-2 text-primary"
+                    >
+                        Preparación:
+                    </h2>
+                    {!! $receta->preparacion !!}
+                </div>
+    
+                <like-button
+                    receta-id="{{$receta->id}}"
+                    like = "{{$like}}"
+                    likes = "{{$likes}}"
+                ></like-button>
+    
+            </div>
+            
+        </div>
+        
+        
+        
     </article>
 @endsection

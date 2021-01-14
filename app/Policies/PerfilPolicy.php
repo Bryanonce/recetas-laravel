@@ -67,7 +67,8 @@ class PerfilPolicy
      */
     public function delete(User $user, Perfil $perfil)
     {
-        //
+        //Revisar si el usuario autenticado es el correcto
+        return $user->id === $perfil->user->id;
     }
 
     /**
